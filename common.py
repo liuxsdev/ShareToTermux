@@ -1,7 +1,7 @@
 import os
 import requests
 import subprocess
-
+import json
 
 def correctFilename(filename):
     rep='\/:*?"<>|`'
@@ -42,5 +42,8 @@ def delFile(filepath):
 def termux_open(filepath):
     os.system("termux-open %s" % filepath)
 
-def termux_dialog_radio(title,option):
-    return json.loads(subprocess.getstatusoutput('termux-dialog radio -t {} -v {}'.format(title,option)))
+def termux_dialog_radio(title,options):
+    s = 'termux-dialog radio -t {} -v {}'.format(title,options)
+    a = subprocess.getoutput(s)
+    print(s,a)
+    return json.loads(a)
