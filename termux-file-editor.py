@@ -5,6 +5,7 @@ import sys
 from bcover import BilibiliCover
 from common import getAllFileContent,delFile
 from common import termux_open,termux_dialog_radio
+from common import extractUrl
 
 file_argv=sys.argv[1]
 saveFolder="/sdcard/BilibiliCovers/"
@@ -28,9 +29,13 @@ def biliCover(fp):
 def downloadVideo(fp):
     url = extractUrl(getAllFileContent(fp))
     if url:
-        os.system('youtube-dl {}'.format(url))
+        print("使用 youtube-dl 进行下载")
+        filename = saveFolder + "%(title)s.%(ext)s"
+        CMD = 'youtube-dl "%s" --output "%s"' % (url,filename)
+        os.system(CMD)
     else:
         print('未提取到url')
+    input("按任意键退出")
 
 choose = termux_dialog_radio("请选择一个操作","1. Bilibili:获取封面,2. 用nano编辑,3. 尝试下载此视频")['index'] + 1
 
@@ -48,4 +53,4 @@ if(hasattr(funDo, '__call__')):
 else:
     print(funDo)
 
-input("任意键退出")
+
