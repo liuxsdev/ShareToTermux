@@ -2,6 +2,7 @@ import os
 import requests
 import subprocess
 import json
+import re
 
 def correctFilename(filename):
     rep='\/:*?"<>|`'
@@ -32,6 +33,15 @@ def getAllFileContent(path):
     with open(path,"r",encoding="utf-8") as f:
         return f.read()
 
+def extractUrl(sometext):
+    '''提取url，失败返回None'''
+    try:
+        _m = re.search('[a-zA-z]+://[^\s]*',sometext)
+        url = _m.group(0)
+    except:
+        url = None
+    return url
+    
 def delFile(filepath):
     try:
         os.remove(filepath)

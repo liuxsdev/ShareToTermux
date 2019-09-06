@@ -14,27 +14,31 @@ if not os.path.exists(saveFolder):
 
 
 
+# 1.用nano编辑
 def nano(filepath):
     os.system('nano %s' % filepath)
 
+# 2.Bilibili:获取封面
 def biliCover(fp):
     content=getAllFileContent(fp)
     bc=BilibiliCover(content)
     termux_open(bc.downloadCover(saveFolder))
 
+# 3.尝试下载此视频
+def downloadVideo(fp):
+    url = extractUrl(getAllFileContent(fp))
+    if url:
+        os.system('youtube-dl {}'.format(url))
+    else:
+        print('未提取到url')
 
-#print('\n'*8)
-#print("选择一个操作:")
-#print("1\tBilibili:获取封面")
-#print("2\t用nano编辑")
-#print("\n")
-
-choose = termux_dialog_radio("请选择一个操作","1. Bilibili:获取封面,2. 用nano编辑")['index'] + 1
+choose = termux_dialog_radio("请选择一个操作","1. Bilibili:获取封面,2. 用nano编辑,3. 尝试下载此视频")['index'] + 1
 
 # choose=int(input("请选择: "))
 s={
     1:biliCover,
     2:nano,
+    3:downloadVideo
 }
 
 
