@@ -29,7 +29,7 @@ def biliCover(fp):
 #print("2\t用nano编辑")
 #print("\n")
 
-choose = termux_dialog_radio("请选择一个操作","Bilibili:获取封面,用nano编辑")['index'] + 1
+choose = termux_dialog_radio("请选择一个操作","1. Bilibili:获取封面,2. 用nano编辑")['index'] + 1
 
 # choose=int(input("请选择: "))
 s={
@@ -43,3 +43,5 @@ if(hasattr(funDo, '__call__')):
     funDo(file_argv)
 else:
     print(funDo)
+
+input("任意键退出")

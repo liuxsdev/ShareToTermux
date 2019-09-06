@@ -43,7 +43,6 @@ def termux_open(filepath):
     os.system("termux-open %s" % filepath)
 
 def termux_dialog_radio(title,options):
-    s = 'termux-dialog radio -t {} -v {}'.format(title,options)
+    s = 'termux-dialog radio -t {} -v "{}"'.format(title,options)
     a = subprocess.getoutput(s)
-    print(s,a)
     return json.loads(a)
