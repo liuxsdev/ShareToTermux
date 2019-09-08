@@ -50,7 +50,9 @@ def delFile(filepath):
         return Fasle
 
 def termux_open(filepath):
-    os.system('termux-open "%s"' % filepath)
+    sh = 'termux-open "{}"'.format(filepath)
+    print(sh)
+    os.system(sh)
 
 def termux_dialog_radio(title,options):
     s = 'termux-dialog radio -t {} -v "{}"'.format(title,options)
