@@ -32,27 +32,6 @@ class BilibiliCover(object):
         else:
             return 0
 
-    def correctUrl(self):
-        '''对包含url的文本格式化，返回正确的url,num'''
-        if self.urlType == 1:
-            _m = re.search('av[0-9][0-9]{3,}',self.urlText)
-            av_num = _m.group(0)
-            return 'https://www.bilibili.com/video/%s/' % av_num,av_num
-        elif self.urlType == 2:
-            _m = re.search('ep[0-9][0-9]{3,}',self.urlText)
-            ep_num = _m.group(0)
-            return 'https://www.bilibili.com/bangumi/play/%s/' % ep_num,ep_num
-        elif self.urlType == 3:
-            _m = re.search('ss[0-9][0-9]{3,}',self.urlText)
-            ss_num = _m.group(0)
-            return 'https://www.bilibili.com/bangumi/play/%s/' % ss_num,ss_num
-        elif self.urlType == 4:
-            _m = re.search('live/(\d+).html',self.urlText)
-            live_num = _m.group(0)
-            return 'https://live.bilibili.com/live/%s.html' % live_num,live_num
-        else:
-            return "未知类型"
-
     def getWebContent(self,url):
         s=HTMLSession()
         r=s.get(url,headers={'user-agent':USER_AGENT})
@@ -97,7 +76,8 @@ class BilibiliCover(object):
     def downloadCover(self,path):
         '''下载封面，参数为路径，返回路径+文件名'''
         r = self.getWebContent(self.coverInfo[0])
-        filename=self.url[1]+".jpg"
+        num = self.url.split('?')[0].split('/')[-1]
+        filename=num+".jpg"
         print("title:",self.coverInfo[1])
         print(filename,"will be download at",path+filename)
         with open(path+filename,"wb") as f:
