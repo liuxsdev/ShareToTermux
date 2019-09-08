@@ -49,7 +49,7 @@ class BilibiliCover(object):
             return 'https://www.bilibili.com/bangumi/play/%s/' % ss_num,ss_num
         elif self.urlType == 4:
             _m = re.search('live/(\d+).html',self.urlText)
-            live_num = _m.group(1)
+            live_num = _m.group(0)
             return 'https://live.bilibili.com/live/%s.html' % live_num,live_num
         else:
             return "未知类型"
