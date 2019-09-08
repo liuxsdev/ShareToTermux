@@ -24,6 +24,7 @@ def biliCover(fp):
     url = extractUrl(getAllFileContent(fp))
     bc=BilibiliCover(url)
     termux_open(bc.downloadCover(saveFolder))
+    input()
 
 # 3.尝试下载此视频
 def downloadVideo(fp):
