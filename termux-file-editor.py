@@ -21,8 +21,8 @@ def nano(filepath):
 
 # 2.Bilibili:获取封面
 def biliCover(fp):
-    content=getAllFileContent(fp)
-    bc=BilibiliCover(content)
+    url = extractUrl(getAllFileContent(fp))
+    bc=BilibiliCover(url)
     termux_open(bc.downloadCover(saveFolder))
 
 # 3.尝试下载此视频
